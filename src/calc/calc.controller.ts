@@ -1,4 +1,4 @@
-import { Body, Controller, Post } from '@nestjs/common';
+import { Body, Controller, Post, Res } from '@nestjs/common';
 import { CalcService } from './calc.service';
 import { CalcDto } from './calc.dto';
 
@@ -7,8 +7,8 @@ export class CalcController {
   constructor(private readonly calcService: CalcService) {}
 
   @Post('/')
-  calc(@Body() calcBody: CalcDto) {
-    const result = this.calcService.calculateExpression(calcBody);
+  calc(@Res() res: Response, @Body() calcBody: CalcDto) {
+    const result = this.calcService.calculateExpression(calcBody,res); 
     return {
       result,
     };
